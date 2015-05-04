@@ -1,0 +1,3 @@
+include ':Template'
+include ':MetaioSDK'
+project(':MetaioSDK').projectDir = new File('../../metaioSDK')

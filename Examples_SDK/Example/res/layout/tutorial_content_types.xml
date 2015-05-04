@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:visibility="gone">
+
+    <ImageButton
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:onClick="onButtonClick"
+        android:src="@drawable/cancel" />
+
+    <LinearLayout
+        android:id="@+id/buttonBar"
+         android:background="@null"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/modelButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onModelButtonClick"
+            android:text="Model" />
+
+        <Button
+            android:id="@+id/imageButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onImageButtonClick"
+            android:text="Image" />
+
+        <Button
+            android:id="@+id/truckButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onTruckButtonClick"
+            android:text="Truck" />
+
+        <Button
+            android:id="@+id/movieButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onMovieButtonClick"
+            android:text="Movie" />
+    </LinearLayout>
+
+</RelativeLayout>

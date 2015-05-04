@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone" >
+
+    <ImageButton
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:onClick="onButtonClick"
+        android:src="@drawable/cancel" />
+
+    <LinearLayout
+        android:id="@+id/buttonBar"
+        android:background="@null"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/instant2DButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="on2DButtonClicked"
+            android:text="2D" />
+
+        <Button
+            android:id="@+id/instant2DRectifiedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="on2DRectifiedButtonClicked"
+            android:text="2D Rectified" />
+
+        <Button
+            android:id="@+id/instant3DButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="on3DButtonClicked"
+            android:text="3D" />
+
+        <Button
+            android:id="@+id/instant2DSLAMButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="on2DSLAMButtonClicked"
+            android:text="2D SLAM" />
+
+        <Button
+            android:id="@+id/instant2DSLAMExtrapolationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="on2DSLAMExtrapolationButtonClicked"
+            android:text="2D SLAM + sensor extrapolation" />
+    </LinearLayout>
+
+</RelativeLayout>

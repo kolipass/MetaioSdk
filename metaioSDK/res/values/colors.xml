@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="listViewText">#FF282828</color>
+    <color name="listViewBackground">#FFECECEC</color>
+    <color name="tableViewBackground">#FFC2C2C2</color>
+    <color name="toastBackground">#EE444444</color>
+    <color name="toastBorder">#EE777777</color>
+    <color name="toastText">#FFF</color>
+    <color name="screenTitle">#FFFFFFFF</color>
+    <color name="sponsoredBackground">#E6FFFF99</color>
+    <color name="poiDetailBackground">#CC000000</color>
+    <color name="metaiocolor">#FF0654A5</color>
+    <color name="button_pressed_background">#33000000</color>
+</resources>

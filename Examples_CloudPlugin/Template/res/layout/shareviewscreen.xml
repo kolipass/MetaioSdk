@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFF"
+    android:orientation="vertical" >
+    <!-- Top bar view -->
+    <FrameLayout
+        android:id="@+id/viewTopBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        <!-- Progress indicator -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="6dip"
+            android:padding="4dip"
+            android:visibility="invisible" >
+        </ProgressBar>
+    </FrameLayout>
+    <!-- Screenshot -->
+    <ImageView
+        android:id="@+id/imageScreenshot"
+        android:layout_width="wrap_content"
+        android:layout_height="240dip"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="20dip"
+        android:scaleType="fitCenter" >
+    </ImageView>
+    <ScrollView
+        android:id="@+id/scrollContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <Button
+                android:id="@+id/btnSave"
+                style="@style/POIButton.POIActionButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/BTN_SAVE_SCREENSHOT" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

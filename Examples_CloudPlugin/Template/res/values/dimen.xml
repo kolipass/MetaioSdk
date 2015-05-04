@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="radarTop">5px</dimen>
+    <dimen name="radarRight">5px</dimen>
+    <dimen name="radarScale">0.5px</dimen>
+
+</resources>

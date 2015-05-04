@@ -1,0 +1,9 @@
+com.metaio.cloud.plugin
+com.metaio.cloud.plugin.services
+com.metaio.cloud.plugin.util
+com.metaio.cloud.plugin.view
+com.metaio.sdk
+com.metaio.sdk.fragments
+com.metaio.sdk.jni
+com.metaio.tools
+com.metaio.tools.io

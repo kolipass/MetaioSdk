@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:visibility="gone">
+
+    <LinearLayout
+        android:id="@+id/layoutGeometries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:visibility="gone"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/buttonTV"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:background="#0000"
+            android:onClick="onTVButtonClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_tv_unselected" />
+
+        <ImageButton
+            android:id="@+id/buttonChair"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_gravity="start"
+            android:background="#0000"
+            android:onClick="onChairButtonClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_chair_unselected" >
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/buttonMan"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_gravity="start"
+            android:background="#0000"
+            android:onClick="onManButtonClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_man_unselected" >
+        </ImageButton>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonBar"
+        style="@android:style/ButtonBar"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onTakePicture"
+            android:text="Take Picture" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClearScreen"
+            android:text="Reset" >
+        </Button>
+        
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onSaveScreen"
+            android:text="Save Screen" />
+
+        
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:onClick="onButtonClick"
+        android:src="@drawable/cancel" />
+
+</RelativeLayout>

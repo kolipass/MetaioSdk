@@ -1,0 +1,12 @@
+include ':MetaioSDK'
+project(':MetaioSDK').projectDir = new File('metaioSDK')
+include ':CloudPluginTemplate'
+project(':CloudPluginTemplate').projectDir = new File('Examples_CloudPlugin/Template')
+include ':MetaioSDK_TemplateAREL'
+project(':MetaioSDK_TemplateAREL').projectDir = new File('Templates_SDK/TemplateAREL')
+include ':MetaioSDK_TemplateJava'
+project(':MetaioSDK_TemplateJava').projectDir = new File('Templates_SDK/Template')
+include ':MetaioSDK_Examples'
+project(':MetaioSDK_Examples').projectDir = new File('Examples_SDK/Example')
+include ':MetaioSDK_CustomRenderer'
+project(':MetaioSDK_CustomRenderer').projectDir = new File('Examples_SDK/CustomRenderer')

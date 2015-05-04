@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Example</string>
+    <string name="metaioSDKSignature">ROc5VM4O0P350/9gBOoYfl8Agm2KMcXWAkoXd82y8QA=</string>
+    <string name="btnReset">Reset</string>
+    <string name="btnClose">close</string>
+    <string name="qr_code_label">Last QR code read:</string>
+</resources>
