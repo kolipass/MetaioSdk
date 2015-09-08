@@ -42,10 +42,20 @@ import com.metaio.R;
 import com.metaio.cloud.plugin.MetaioCloudPlugin;
 import com.metaio.cloud.plugin.util.JunaioChannel;
 import com.metaio.cloud.plugin.util.MetaioCloudUtils;
+import com.metaio.sdk.MetaioDebug;
+import com.metaio.sdk.jni.IMetaioSDKAndroid;
 
 @SuppressWarnings("deprecation")
 public class WebViewActivity extends Activity
 {
+    static {
+        try {
+            IMetaioSDKAndroid.loadNativeLibs();
+        } catch (Exception e) {
+            MetaioDebug.log(Log.ERROR, "Can't load native libraries");
+        }
+    }
+
 	/**
 	 * Web view
 	 */
@@ -361,10 +371,10 @@ public class WebViewActivity extends Activity
 		}
 
 		ViewGroup customView;
-		WebChromeClient.CustomViewCallback mCustomViewCallback;
+		CustomViewCallback mCustomViewCallback;
 
 		@Override
-		public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback)
+		public void onShowCustomView(View view, CustomViewCallback callback)
 		{
 			customView = (ViewGroup)LayoutInflater.from(getApplicationContext()).inflate(R.layout.html5container, null);
 
@@ -463,8 +473,7 @@ public class WebViewActivity extends Activity
 				else if ((channel = MetaioCloudUtils.parseUrl(Uri.parse(url))) != null && channel.getChannelID() > -1)
 				{
 					MetaioCloudPlugin.log("Channel ID: " + channel.getChannelID());
-                    MetaioCloudPlugin.getDataSource().loadChannelInformationFromID(channel.getChannelID());
-
+                    MetaioCloudPlugin.getDataSource().loadPOIsAndChannelInformationForID(channel.getChannelID());
                     finish();
 					return true;
 				}

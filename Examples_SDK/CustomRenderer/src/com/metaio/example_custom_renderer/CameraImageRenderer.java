@@ -165,7 +165,7 @@ public final class CameraImageRenderer
 
 			if (cameraIsRotated)
 			{
-				// Camera image will be rendered with +-90ฐ rotation, so switch UV coordinates
+				// Camera image will be rendered with +-90ยบ rotation, so switch UV coordinates
 				float tmp = offsetX;
 				offsetX = offsetY;
 				offsetY = tmp;

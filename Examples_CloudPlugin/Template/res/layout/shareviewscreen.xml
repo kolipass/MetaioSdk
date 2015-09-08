@@ -44,6 +44,7 @@
                 style="@style/POIButton.POIActionButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:onClick="onSaveClick"
                 android:text="@string/BTN_SAVE_SCREENSHOT" />
         </LinearLayout>
     </ScrollView>

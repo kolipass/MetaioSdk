@@ -7,8 +7,15 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 21
     buildToolsVersion "21.1.1"
+
+    defaultConfig {
+        minSdkVersion 10
+        targetSdkVersion 21
+        // change the channel id here if you are using android studio and don't want to use /res/values/channelid.xml
+        buildConfigField "int", "CHANNELID", "-1"
+    }
 
     sourceSets {
         main {

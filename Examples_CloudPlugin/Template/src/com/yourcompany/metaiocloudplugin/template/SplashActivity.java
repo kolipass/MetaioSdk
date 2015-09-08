@@ -1,5 +1,10 @@
 package com.yourcompany.metaiocloudplugin.template;
 
+import com.metaio.cloud.plugin.MetaioCloudPlugin;
+import com.metaio.sdk.MetaioDebug;
+import com.metaio.sdk.jni.IMetaioSDKAndroid;
+import com.metaio.tools.SystemInfo;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,10 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.metaio.cloud.plugin.MetaioCloudPlugin;
-import com.metaio.sdk.MetaioDebug;
-import com.metaio.sdk.jni.IMetaioSDKAndroid;
-import com.metaio.tools.SystemInfo;
+import java.lang.reflect.Field;
 
 public class SplashActivity extends Activity
 {
@@ -40,7 +42,7 @@ public class SplashActivity extends Activity
 
         try {
             loadNativeLibs();
-        } catch (Exception e) {
+        } catch (UnsatisfiedLinkError e) {
             Utils.showErrorForCloudPluginResult(MetaioCloudPlugin.ERROR_CPU_NOT_SUPPORTED, this);
             return;
         }
@@ -78,8 +80,17 @@ public class SplashActivity extends Activity
 	 */
 	private void launchLiveView()
 	{
-		// Set your channel id in /res/values/channelid.xml
-		final int myChannelId = getResources().getInteger(R.integer.channelid);
+        // Set your channel id in /res/values/channelid.xml
+        int myChannelId = getResources().getInteger(R.integer.channelid);
+
+        // for android studio this can be set in build.gradle inside the BuildConfig.CHANNELID, we use reflection to prevent errors in eclipse
+        try {
+            Class<?> someClass = BuildConfig.class;
+            Field someField = someClass.getField("CHANNELID");
+            myChannelId = someField.getInt(null);
+        } catch (Exception e) {
+            //do nothing
+        }
 
 		// if you have set a channel ID, then load it directly
 		if (myChannelId != -1)

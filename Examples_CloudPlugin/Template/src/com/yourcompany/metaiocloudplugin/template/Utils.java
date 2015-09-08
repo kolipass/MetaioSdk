@@ -13,7 +13,7 @@ public final class Utils
 	/**
 	 * Standard tag used for all the debug messages
 	 */
-	public static final String TAG = "MetaioCloudPluginTemp";
+	public static final String TAG = "MetaioCloudPluginTemplate";
 
 	/**
 	 * Display log messages with debug priority

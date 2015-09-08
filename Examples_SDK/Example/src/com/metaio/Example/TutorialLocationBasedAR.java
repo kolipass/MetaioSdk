@@ -2,6 +2,7 @@
 package com.metaio.Example;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 
 import android.graphics.Bitmap;
@@ -24,8 +25,6 @@ import com.metaio.sdk.jni.IRadar;
 import com.metaio.sdk.jni.ImageStruct;
 import com.metaio.sdk.jni.LLACoordinate;
 import com.metaio.sdk.jni.Rotation;
-import com.metaio.sdk.jni.SensorValues;
-import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
 public class TutorialLocationBasedAR extends ARViewActivity
@@ -35,23 +34,22 @@ public class TutorialLocationBasedAR extends ARViewActivity
 	private MyAnnotatedGeometriesGroupCallback mAnnotatedGeometriesGroupCallback;
 
 	/**
-	 * Geometries
+	 * List of geometries
 	 */
-	private IGeometry mLondonGeo;
-	private IGeometry mMunichGeo;
-	private IGeometry mRomeGeo;
-	private IGeometry mTokyoGeo;
-	private IGeometry mParisGeo;
+	private ArrayList<IGeometry> mGeometries;
 
+	/**
+	 * Radar object
+	 */
 	private IRadar mRadar;
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
-		// Set GPS tracking configuration
-		boolean result = metaioSDK.setTrackingConfiguration("GPS", false);
+		// Set GPS-Compass tracking configuration
+		final boolean result = metaioSDK.setTrackingConfiguration("GPS", false);
 		MetaioDebug.log("Tracking data loaded: " + result);
 	}
 
@@ -76,33 +74,24 @@ public class TutorialLocationBasedAR extends ARViewActivity
 	@Override
 	public void onDrawFrame()
 	{
-		if (metaioSDK != null && mSensors != null)
+		try
 		{
-			SensorValues sensorValues = mSensors.getSensorValues();
-
-			float heading = 0.0f;
-			if (sensorValues.hasAttitude())
+			// Set rotation of the geometries to always face user
+			final float heading = (float) Math.toRadians(mSensors.getHeading());
+			
+			Rotation rototation = new Rotation((float)(Math.PI/2.0), 0f, -heading);
+			for (IGeometry geometry : mGeometries)
 			{
-				float m[] = new float[9];
-				sensorValues.getAttitude().getRotationMatrix(m);
-
-				Vector3d v = new Vector3d(m[6], m[7], m[8]);
-				v.normalize();
-
-				heading = (float)(-Math.atan2(v.getY(), v.getX()) - Math.PI / 2.0);
+				geometry.setRotation(rototation);
 			}
-
-			IGeometry geos[] = new IGeometry[] {mLondonGeo, mParisGeo, mRomeGeo, mTokyoGeo};
-			Rotation rot = new Rotation((float)(Math.PI / 2.0), 0.0f, -heading);
-			for (IGeometry geo : geos)
-			{
-				if (geo != null)
-				{
-					geo.setRotation(rot);
-				}
-			}
+			rototation.delete();
+			rototation = null;
+			
 		}
-
+		catch (Exception e)
+		{
+		}
+		
 		super.onDrawFrame();
 	}
 
@@ -139,39 +128,44 @@ public class TutorialLocationBasedAR extends ARViewActivity
 		metaioSDK.setRendererClippingPlaneLimits(10, 220000);
 
 		// let's create LLA objects for known cities
-		LLACoordinate munich = new LLACoordinate(48.142573, 11.550321, 0, 0);
-		LLACoordinate london = new LLACoordinate(51.50661, -0.130463, 0, 0);
-		LLACoordinate tokyo = new LLACoordinate(35.657464, 139.773865, 0, 0);
-		LLACoordinate rome = new LLACoordinate(41.90177, 12.45987, 0, 0);
-		LLACoordinate paris = new LLACoordinate(48.85658, 2.348671, 0, 0);
-
+		final LLACoordinate MUNICH = new LLACoordinate(48.142573, 11.550321, 0, 0);
+		final LLACoordinate LONDON = new LLACoordinate(51.50661, -0.130463, 0, 0);
+		final LLACoordinate TOKYO = new LLACoordinate(35.657464, 139.773865, 0, 0);
+		final LLACoordinate ROME = new LLACoordinate(41.90177, 12.45987, 0, 0);
+		final LLACoordinate PARIS = new LLACoordinate(48.85658, 2.348671, 0, 0);
+		mGeometries = new ArrayList<IGeometry>();
+		
 		// Load some POIs. Each of them has the same shape at its geoposition. We pass a string
 		// (const char*) to IAnnotatedGeometriesGroup::addGeometry so that we can use it as POI
 		// title
 		// in the callback, in order to create an annotation image with the title on it.
-		mLondonGeo = createPOIGeometry(london);
-		mAnnotatedGeometriesGroup.addGeometry(mLondonGeo, "London");
+		IGeometry geometry = createPOIGeometry(LONDON);
+		mAnnotatedGeometriesGroup.addGeometry(geometry, "London");
+		mGeometries.add(geometry);
 
-		mParisGeo = createPOIGeometry(paris);
-		mAnnotatedGeometriesGroup.addGeometry(mParisGeo, "Paris");
+		geometry = createPOIGeometry(PARIS);
+		mAnnotatedGeometriesGroup.addGeometry(geometry, "Paris");
+		mGeometries.add(geometry);
 
-		mRomeGeo = createPOIGeometry(rome);
-		mAnnotatedGeometriesGroup.addGeometry(mRomeGeo, "Rome");
+		geometry = createPOIGeometry(ROME);
+		mAnnotatedGeometriesGroup.addGeometry(geometry, "Rome");
+		mGeometries.add(geometry);
 
-		mTokyoGeo = createPOIGeometry(tokyo);
-		mAnnotatedGeometriesGroup.addGeometry(mTokyoGeo, "Tokyo");
+		geometry = createPOIGeometry(TOKYO);
+		mAnnotatedGeometriesGroup.addGeometry(geometry, "Tokyo");
+		mGeometries.add(geometry);
 
 		File metaioManModel =
 				AssetsManager.getAssetPathAsFile(getApplicationContext(),
 						"TutorialLocationBasedAR/Assets/metaioman.md2");
 		if (metaioManModel != null)
 		{
-			mMunichGeo = metaioSDK.createGeometry(metaioManModel);
-			if (mMunichGeo != null)
+			geometry = metaioSDK.createGeometry(metaioManModel);
+			if (geometry != null)
 			{
-				mMunichGeo.setTranslationLLA(munich);
-				mMunichGeo.setLLALimitsEnabled(true);
-				mMunichGeo.setScale(500);
+				geometry.setTranslationLLA(MUNICH);
+				geometry.setLLALimitsEnabled(true);
+				geometry.setScale(500f);
 			}
 			else
 			{
@@ -188,11 +182,11 @@ public class TutorialLocationBasedAR extends ARViewActivity
 		mRadar.setRelativeToScreen(IGeometry.ANCHOR_TL);
 
 		// add geometries to the radar
-		mRadar.add(mLondonGeo);
-		mRadar.add(mMunichGeo);
-		mRadar.add(mTokyoGeo);
-		mRadar.add(mParisGeo);
-		mRadar.add(mRomeGeo);
+		mRadar.add(geometry);
+		for (IGeometry g:mGeometries)
+		{
+			mRadar.add(g);
+		}
 	}
 
 	private IGeometry createPOIGeometry(LLACoordinate lla)
@@ -202,11 +196,11 @@ public class TutorialLocationBasedAR extends ARViewActivity
 						"TutorialLocationBasedAR/Assets/ExamplePOI.obj");
 		if (path != null)
 		{
-			IGeometry geo = metaioSDK.createGeometry(path);
-			geo.setTranslationLLA(lla);
-			geo.setLLALimitsEnabled(true);
-			geo.setScale(100);
-			return geo;
+			IGeometry geometry = metaioSDK.createGeometry(path);
+			geometry.setTranslationLLA(lla);
+			geometry.setLLALimitsEnabled(true);
+			geometry.setScale(100f);
+			return geometry;
 		}
 		else
 		{
