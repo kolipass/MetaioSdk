@@ -3,16 +3,16 @@ apply plugin: 'com.android.application'
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile project(':MetaioSDK')
-    compile 'com.android.support:support-v4:21.0.2'
+    compile 'com.android.support:support-v4:23.0.1'
 }
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 21
+        targetSdkVersion 23
         // change the channel id here if you are using android studio and don't want to use /res/values/channelid.xml
         buildConfigField "int", "CHANNELID", "-1"
     }
@@ -40,6 +40,11 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 buildscript {
