@@ -16,7 +16,7 @@ and:
 
 ```gradle
 dependencies {
-    compile 'com.github.kolipass:MetaioSdk:6.0.2.1@aar'
+    compile 'com.github.kolipass:MetaioSdk:6.0.2.2@aar'
 }
 ```
 
